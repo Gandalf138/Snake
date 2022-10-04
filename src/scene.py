@@ -1,5 +1,4 @@
 import pygame
-import random
 from const import *
 from food import Food
 from snake import Snake
@@ -9,7 +8,6 @@ class Scene:
     def __init__(self):
         self.food = Food()
         self.snake = Snake()
-        self.food_start()
 
     def show_bg(self, surface):
         for row in range(ROWS):
@@ -20,18 +18,27 @@ class Scene:
                     color = D_GREEN
 
                 rect = (col*SQSIZE, row*SQSIZE, SQSIZE, SQSIZE)
-
                 pygame.draw.rect(surface, color, rect)
+
+    def show_snake(self, surface, last_key):
+        snake = self.snake
+        rect = snake.head(last_key)
+        pygame.draw.rect(surface, BLUE, rect)
+
+    def show_tail(self, surface):
+        snake = self.snake
+        for segment in range(snake.tail_count):
+            rect = snake.tail(segment)
+            pygame.draw.rect(surface, BLUE, rect)
 
     def show_food(self, surface):
         snake = self.snake
         food = self.food
 
-        if snake == food.food_location:
-            food.spawn()
+        if snake.locationX == food.foodX-10:
+            if snake.locationY ==food.foodY-10:
+                snake.tail_count += 1
+                food.spawn()
 
-        circ = (food.food_location)
+        circ = (food.foodX, food.foodY)
         pygame.draw.circle(surface, RED, circ, SQSIZE//2)
-
-    def food_start():
-        food.spawn()
