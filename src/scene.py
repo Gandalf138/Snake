@@ -36,9 +36,23 @@ class Scene:
         food = self.food
 
         if snake.locationX == food.foodX-10:
-            if snake.locationY ==food.foodY-10:
+            if snake.locationY == food.foodY-10:
                 snake.tail_count += 1
                 food.spawn()
 
         circ = (food.foodX, food.foodY)
         pygame.draw.circle(surface, RED, circ, SQSIZE//2)
+
+    def isdead(self):
+        snake = self.snake
+
+        if snake.locationX in snake.prev_locX:
+            n = snake.prev_locX.index(snake.locationX)
+            if snake.locationY == snake.prev_locY[n]:
+                pygame.quit()
+
+    def isout(self):
+        snake = self.snake
+
+        if snake.locationX < 0 or snake.locationX > WIDTH or snake.locationY < 0 or snake.locationY > HEIGHT:
+            pygame.quit()
