@@ -3,11 +3,15 @@ from const import *
 from food import Food
 from snake import Snake
 
+
 class Scene:
 
     def __init__(self):
         self.food = Food()
         self.snake = Snake()
+
+    def get_player_snake(self):
+        return self.snake
 
     def show_bg(self, surface):
         for row in range(ROWS):
@@ -20,9 +24,9 @@ class Scene:
                 rect = (col*SQSIZE, row*SQSIZE, SQSIZE, SQSIZE)
                 pygame.draw.rect(surface, color, rect)
 
-    def show_snake(self, surface, last_key):
+    def show_snake(self, surface):
         snake = self.snake
-        rect = snake.head(last_key)
+        rect = snake.head()
         pygame.draw.rect(surface, BLUE, rect)
 
     def show_tail(self, surface):
