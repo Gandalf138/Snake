@@ -54,5 +54,5 @@ class Scene:
     def isout(self):
         snake = self.snake
 
-        if snake.locationX < 0 or snake.locationX > WIDTH or snake.locationY < 0 or snake.locationY > HEIGHT:
+        if snake.locationX < 0 or snake.locationX >= WIDTH or snake.locationY < 0 or snake.locationY >= HEIGHT:
             pygame.quit()
